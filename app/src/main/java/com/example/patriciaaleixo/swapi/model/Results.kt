@@ -2,7 +2,16 @@ package com.example.patriciaaleixo.swapi.model
 
 import com.google.gson.annotations.SerializedName
 
-data class PeopleResult(val results : List<Person>)
+data class PeopleResult(val results : List<Person>,
+                        val next : String)
+
+data class FilmResult (val results : List<Film>)
+
+data class Film (val title : String,
+                 @SerializedName("episode_id")
+                 val episodeId : Int,
+                 @SerializedName("characters")
+                 val personUrls : List<String>)
 
 
 data class Person(val name : String,
@@ -19,6 +28,8 @@ data class Person(val name : String,
 data class PlanetResult (val name : String)
 
 data class SpecieResult (val name : String)
+
+data class VehiclesResult (val name : String)
 
 
 

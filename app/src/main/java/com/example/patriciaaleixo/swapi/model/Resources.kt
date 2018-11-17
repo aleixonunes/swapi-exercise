@@ -8,18 +8,11 @@ data class People(val name : String,
                   val gender: String,
                   val homeworld : String,
                   val species :MutableList<Species>,
-                  val vehicles : MutableList<Vehicles>)
+                  val nvehicles : Int)
 
 data class Species(val name : String){
     override fun toString(): String {
         return "${name}"
-    }
-}
-
-data class Vehicles(val name: String, val model: String){
-
-    override fun toString(): String {
-        return "${name} / ${model}"
     }
 }
 

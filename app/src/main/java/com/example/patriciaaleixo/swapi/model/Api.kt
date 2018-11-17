@@ -3,12 +3,13 @@ package com.example.patriciaaleixo.swapi.model
 import android.net.Uri
 import com.google.gson.GsonBuilder
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.function.BiFunction
 
 class Api {
     val service: ApiDefinition
@@ -34,13 +35,12 @@ class Api {
 
 
     fun loadPeople(): Observable<People> {
-        return service.listPeople()
-            .flatMap { peopleResults -> Observable.fromIterable(peopleResults.results) }
+        return concatPeople(1)
             .flatMap { person ->
-                val peopleObj = People(person.name,person.skin_color, person.gender, person.planetId, ArrayList(), ArrayList())
+                val peopleObj =
+                    People(person.name, person.skin_color, person.gender, person.planetId, ArrayList(), person.vehiclesList.size)
                 Observable.zip(
-                    Observable
-                        .just(peopleObj),
+                    Observable.just(peopleObj),
                     Observable
                         .fromIterable(person.speciesList)
                         .flatMap { specieUrl ->
@@ -56,6 +56,16 @@ class Api {
                         people.species.addAll(species)
                         people
                     })
+            }
+    }
+
+    private fun concatPeople(page: Int): Observable<Person> {
+        return service.listPeople(page)
+            .concatMap { peopleList ->
+                if (peopleList.next == null)
+                    Observable.fromIterable(peopleList.results)
+                else Observable.fromIterable(peopleList.results)
+                    .concatWith(concatPeople(page + 1))
             }
     }
 }
