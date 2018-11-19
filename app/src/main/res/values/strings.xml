@@ -4,7 +4,12 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="characters">Characters</string>
-    <string name="vehicles">Vehicles</string>
+    <string name="vehicles">Vehicles:</string>
+    <string name="nvehicles">Nº vehicles: %1$s</string>
+    <string name="name">Name: %1$s</string>
+    <string name="gender">Gender: %1$s</string>
+    <string name="skin">Skin color: %1$s</string>
+    <string name="home">Homehold: %1$s</string>
     <string name="title_activity_people_detail">PeopleDetailActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
 </resources>

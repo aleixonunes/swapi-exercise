@@ -1,10 +1,15 @@
+/*
+ * *************************************************************************
+ * Created by:       Patricia Aleixo 11/2018
+ * *************************************************************************
+ */
+
 package com.example.patriciaaleixo.swapi.model
 
 import android.net.Uri
 import com.google.gson.GsonBuilder
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.functions.Function3
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -12,7 +17,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class Api {
-    val service: ApiDefinition
+
+    private val service: ApiDefinition
 
     init {
         val logging = HttpLoggingInterceptor()
@@ -21,50 +27,46 @@ class Api {
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor(logging)
 
-        val gson = GsonBuilder().setLenient().create()
-
         val retrofit = Retrofit.Builder()
             .baseUrl("http://swapi.co/api/")
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .client(httpClient.build())
             .build()
 
         service = retrofit.create<ApiDefinition>(ApiDefinition::class.java)
     }
 
-
     fun loadPeople(): Observable<People> {
         return concatPeople(1)
             .flatMap { person ->
-                val peopleObj =
+                val personObject =
                     People(person.name, person.skin_color, person.gender, person.planetId, ArrayList(), ArrayList())
-                Observable.zip(
-                    Observable.just(peopleObj),
-                   /* Observable
+                Observable.combineLatest(
+                    Observable.just(personObject),
+                    Observable
                         .fromIterable(person.vehiclesList)
-                        .flatMap { vehicleUrl ->
-                            service.loadVehicles(Uri.parse(vehicleUrl).lastPathSegment)
-                                .take(1)
+                        .flatMap {
+                            service.loadVehicles(Uri.parse(it).lastPathSegment)
                                 .map { vehicle ->
                                     Vehicle(vehicle.name)
                                 }
                         }
                         .toList()
-                        .toObservable(),*/
+                        .toObservable(),
                     Observable
                         .fromIterable(person.speciesList)
-                        .flatMap { specieUrl ->
-                            service.loadSpecies(Uri.parse(specieUrl).lastPathSegment)
-                                .take(1)
+                        .flatMap {
+                            service.loadSpecies(Uri.parse(it).lastPathSegment)
                                 .map { specie ->
                                     Species(specie.name)
                                 }
                         }
                         .toList()
                         .toObservable(),
-                    io.reactivex.functions.BiFunction<People, List<Species>, People> { people, species ->
-                        people.species.addAll(species)
+                    Function3<People, List<Vehicle>, List<Species>, People> { people, vehicle, specie ->
+                        people.nvehicles.addAll(vehicle)
+                        people.species.addAll(specie)
                         people
                     })
             }
@@ -80,7 +82,7 @@ class Api {
             }
     }
 
-    fun loadPlanet(planetUrl: String): Observable<PlanetResult>{
+    fun loadPlanet(planetUrl: String): Observable<PlanetResult> {
         return service.loadPlanet(Uri.parse(planetUrl).lastPathSegment)
     }
 }

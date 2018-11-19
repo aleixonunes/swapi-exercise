@@ -1,3 +1,9 @@
+/*
+ * *************************************************************************
+ * Created by:       Patricia Aleixo 11/2018
+ * *************************************************************************
+ */
+
 package com.example.patriciaaleixo.swapi.model
 
 import io.reactivex.Observable
@@ -11,18 +17,13 @@ interface ApiDefinition {
     fun listPeople(@Query("page") page: Int): Observable<PeopleResult>
 
     @GET("planets/{planetId}")
-    fun loadPlanet(@Path("planetId") planetId: String): Observable<PlanetResult>
+    fun loadPlanet(@Path("planetId") planetId: String?): Observable<PlanetResult>
+
 
     @GET("species/{specieId}")
-    fun loadSpecies(@Path("specieId") specieId: String): Observable<SpecieResult>
+    fun loadSpecies(@Path("specieId") specieId: String?): Observable<SpecieResult>
 
     @GET("vehicles/{vehicleId}")
-    fun loadVehicles(@Path("vehiclesId") vehiclesId: String): Observable<VehiclesResult>
-
-    @GET("films")
-    fun listMovies(): Observable<FilmResult>
-
-    @GET("people/{personId}")
-    fun loadPerson(@Path("personId") personId: String): Observable<Person>
+    fun loadVehicles(@Path("vehicleId") vehiclesId: String?): Observable<VehicleResult>
 
 }

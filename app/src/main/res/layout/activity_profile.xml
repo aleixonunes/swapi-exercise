@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryLight"
-        tools:context=".ProfileActivity">
+        tools:context=".view.ProfileActivity">
 
     <include
             android:id="@+id/app_bar"
@@ -15,7 +15,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
-
 
     <ImageView
             android:id="@+id/profilePicture"

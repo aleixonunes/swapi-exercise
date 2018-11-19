@@ -1,17 +1,28 @@
+/*
+ * *************************************************************************
+ * Created by:       Patricia Aleixo 11/2018
+ * *************************************************************************
+ */
+
 package com.example.patriciaaleixo.swapi.util
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.view.*
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.View
 
 class RecyclerItemClickListener(
     context: Context,
     private val mListener: OnItemClickListener?
 ) : RecyclerView.OnItemTouchListener {
 
-    private var mGestureDetector: GestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
-        override fun onSingleTapUp(e: MotionEvent): Boolean {
-            return true } })
+    private var mGestureDetector: GestureDetector =
+        GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onSingleTapUp(e: MotionEvent): Boolean {
+                return true
+            }
+        })
 
     interface OnItemClickListener {
         fun onItemClick(view: View, position: Int)
