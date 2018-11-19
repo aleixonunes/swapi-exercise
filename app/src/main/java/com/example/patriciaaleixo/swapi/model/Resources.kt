@@ -1,6 +1,5 @@
 package com.example.patriciaaleixo.swapi.model
-
-import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class People(val name : String,
@@ -8,25 +7,17 @@ data class People(val name : String,
                   val gender: String,
                   val homeworld : String,
                   val species :MutableList<Species>,
-                  val nvehicles : Int)
+                  val nvehicles : MutableList<Vehicle>) : Serializable
 
-data class Species(val name : String){
+data class Species(val name : String) : Serializable {
     override fun toString(): String {
         return "${name}"
     }
 }
 
-data class Planet (val name:String)
-
-
-data class Movie (val title : String,
-                  val episodeId : Int,
-                  val characters : MutableList<Character>)
-
-data class Character(val name : String,
-                     val gender : String){
-
+data class Vehicle(val name : String) : Serializable {
     override fun toString(): String {
-        return "${name} / ${gender}"
+        return "${name}"
     }
 }
+

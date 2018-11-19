@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">STAR WARS API</string>
-    <string name="title_home">Home</string>
+    <string name="title_About">About</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="characters">Characters</string>
+    <string name="vehicles">Vehicles</string>
+    <string name="title_activity_people_detail">PeopleDetailActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.patriciaaleixo.swapi.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class PeopleResult(val results : List<Person>,
                         val next : String)

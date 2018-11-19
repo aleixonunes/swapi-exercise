@@ -38,9 +38,20 @@ class Api {
         return concatPeople(1)
             .flatMap { person ->
                 val peopleObj =
-                    People(person.name, person.skin_color, person.gender, person.planetId, ArrayList(), person.vehiclesList.size)
+                    People(person.name, person.skin_color, person.gender, person.planetId, ArrayList(), ArrayList())
                 Observable.zip(
                     Observable.just(peopleObj),
+                   /* Observable
+                        .fromIterable(person.vehiclesList)
+                        .flatMap { vehicleUrl ->
+                            service.loadVehicles(Uri.parse(vehicleUrl).lastPathSegment)
+                                .take(1)
+                                .map { vehicle ->
+                                    Vehicle(vehicle.name)
+                                }
+                        }
+                        .toList()
+                        .toObservable(),*/
                     Observable
                         .fromIterable(person.speciesList)
                         .flatMap { specieUrl ->
@@ -67,5 +78,9 @@ class Api {
                 else Observable.fromIterable(peopleList.results)
                     .concatWith(concatPeople(page + 1))
             }
+    }
+
+    fun loadPlanet(planetUrl: String): Observable<PlanetResult>{
+        return service.loadPlanet(Uri.parse(planetUrl).lastPathSegment)
     }
 }
