@@ -10,7 +10,7 @@ Future work:
   
   <img src="https://github.com/aleixonunes/swapi-exercise/blob/SWAPI_api_interface/Screenshot_20181119-204818.png?raw=true" width="300">
 
-  
-  ![](https://github.com/aleixonunes/swapi-exercise/blob/SWAPI_api_interface/Screenshot_20181119-204825.png?raw=true)
-  
-  ![](https://github.com/aleixonunes/swapi-exercise/blob/SWAPI_api_interface/Screenshot_20181119-204832.png?raw=true)
+<img src="https://github.com/aleixonunes/swapi-exercise/blob/SWAPI_api_interface/Screenshot_20181119-204825.png?raw=true" width="300">
+
+  <img src="https://github.com/aleixonunes/swapi-exercise/blob/SWAPI_api_interface/Screenshot_20181119-204832.png?raw=true" width="300">
+
