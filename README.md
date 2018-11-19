@@ -6,6 +6,8 @@ Future work:
   - Add visible color according with skin_color field
   - Architecture improvements 
   - UI improvements
+  - Unit tests
+  - Automated test
   
   
   <img src="https://github.com/aleixonunes/swapi-exercise/blob/SWAPI_api_interface/Screenshot_20181119-204818.png?raw=true" width="300">
